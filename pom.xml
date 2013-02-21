@@ -9,11 +9,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-	<groupId>com.citytechinc.cq</groupId>
     <artifactId>cq5-groovy-tools</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>CQ5 Groovy Tools</name>
+    <name>CITYTECH, Inc. CQ5 Groovy Tools</name>
 
     <build>
         <plugins>
@@ -127,7 +126,6 @@
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-nop</artifactId>
 		    <version>1.6.4</version>
-		    <scope>compile</scope>
 	    </dependency>
 
 	    <!-- provided -->
@@ -135,6 +133,10 @@
             <groupId>javax.jcr</groupId>
             <artifactId>jcr</artifactId>
         </dependency>
+	    <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>servlet-api</artifactId>
+	    </dependency>
         <dependency>
             <groupId>com.day.cq.wcm</groupId>
             <artifactId>cq-wcm-api</artifactId>
@@ -143,6 +145,10 @@
             <groupId>com.day.cq</groupId>
             <artifactId>cq-commons</artifactId>
         </dependency>
+	    <dependency>
+		    <groupId>com.day.cq</groupId>
+		    <artifactId>cq-tagging</artifactId>
+	    </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -151,6 +157,7 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
 	        <version>2.1.1</version>
+	        <scope>provided</scope>
         </dependency>
 
 		<!-- test -->
@@ -158,11 +165,13 @@
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
 	        <version>0.7-groovy-2.0</version>
+	        <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.commons.testing</artifactId>
 	        <version>2.0.10</version>
+	        <scope>test</scope>
             <exclusions>
 	            <exclusion>
 		            <groupId>org.slf4j</groupId>
@@ -174,5 +183,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+	    <dependency>
+		    <groupId>com.citytechinc.cq</groupId>
+		    <artifactId>cq5-testing</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		    <scope>test</scope>
+	    </dependency>
     </dependencies>
 </project>

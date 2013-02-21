@@ -1,10 +1,24 @@
 package com.citytechinc.cq.groovy.builders
 
-import com.citytechinc.cq.groovyconsole.AbstractRepositorySpec
+import com.citytechinc.cq.groovy.metaclass.GroovyMetaClassRegistry
+import com.citytechinc.cq.testing.AbstractRepositorySpec
 
 import spock.lang.Shared
 
 class NodeBuilderSpec extends AbstractRepositorySpec {
+
+	@Shared nodeBuilder
+
+	def setupSpec() {
+		GroovyMetaClassRegistry.registerMetaClasses()
+
+		nodeBuilder = new NodeBuilder(session)
+	}
+
+	def cleanup() {
+		session.rootNode.nodes.findAll { !SYSTEM_NODE_NAMES.contains(it.name) }*.remove()
+		session.save()
+	}
 
     def 'build node'() {
         setup:

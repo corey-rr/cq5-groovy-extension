@@ -1,10 +1,8 @@
 package com.citytechinc.cq.groovy.builders
 
-import com.citytechinc.cq.groovyconsole.AbstractRepositorySpec
+import com.citytechinc.cq.groovy.AbstractGroovySpec
 
-import spock.lang.Shared
-
-class PageBuilderSpec extends AbstractRepositorySpec {
+class PageBuilderSpec extends AbstractGroovySpec {
 
     def 'build page'() {
         setup:

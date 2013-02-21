@@ -6,7 +6,7 @@ class PageBuilder extends BuilderSupport {
 
     def currentNode
 
-    public PageBuilder(session) {
+    PageBuilder(session) {
         this.session = session
 
         currentNode = session.rootNode
@@ -72,7 +72,7 @@ class PageBuilder extends BuilderSupport {
         currentNode = currentNode.parent
     }
 
-    private def getOrAddPage(map) {
+    def getOrAddPage(map) {
         def pageNode = currentNode.getOrAddNode(map.name, 'cq:Page')
         def contentNode = pageNode.getOrAddNode('jcr:content')
 
@@ -87,11 +87,11 @@ class PageBuilder extends BuilderSupport {
         pageNode
     }
 
-    private boolean isContentNode(name) {
+    boolean isContentNode(name) {
         name == 'jcr:content' || currentNode.path.contains('jcr:content')
     }
 
-    private void setAttributes(node, attributes) {
+    void setAttributes(node, attributes) {
         attributes.each { k, v ->
             node.set(k, v)
         }

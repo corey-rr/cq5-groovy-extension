@@ -1,9 +1,9 @@
 package com.citytechinc.cq.groovy.metaclass
 
-import com.citytechinc.cq.groovyconsole.AbstractRepositorySpec
+import com.citytechinc.cq.groovy.AbstractGroovySpec
 import spock.lang.Shared
 
-class GroovyConsoleMetaClassRegistrySpec extends AbstractRepositorySpec {
+class GroovyMetaClassRegistrySpec extends AbstractGroovySpec {
 
 	@Shared node
 

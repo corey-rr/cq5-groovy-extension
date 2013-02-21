@@ -6,7 +6,7 @@ class NodeBuilder extends BuilderSupport {
 
     def currentNode
 
-    public NodeBuilder(session) {
+    NodeBuilder(session) {
         this.session = session
 
         currentNode = session.rootNode
@@ -56,7 +56,7 @@ class NodeBuilder extends BuilderSupport {
         currentNode = currentNode.parent
     }
 
-    private void setProperties(node, properties) {
+    void setProperties(node, properties) {
         properties.each { k, v ->
             node.set(k, v)
         }
