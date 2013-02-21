@@ -1,9 +1,9 @@
 package com.citytechinc.cq.groovy.metaclass
 
-import com.citytechinc.cq.groovy.AbstractGroovySpec
+import com.citytechinc.cq.groovy.AbstractGroovyToolsSpec
 import spock.lang.Shared
 
-class GroovyMetaClassRegistrySpec extends AbstractGroovySpec {
+class GroovyMetaClassRegistrySpec extends AbstractGroovyToolsSpec {
 
 	@Shared node
 
@@ -11,12 +11,12 @@ class GroovyMetaClassRegistrySpec extends AbstractGroovySpec {
 		def properties = [:]
 
 		nodeBuilder.test(properties) {
-			child1('nt:folder') {
-				sub('nt:folder') {
-					subsub('nt:folder')
+			child1("nt:folder") {
+				sub("nt:folder") {
+					subsub("nt:folder")
 				}
 			}
-			child2('sling:Folder')
+			child2("sling:Folder")
 			child3()
 		}
 
@@ -45,7 +45,7 @@ class GroovyMetaClassRegistrySpec extends AbstractGroovySpec {
 		setup:
 		def names = []
 
-		node.recurse('nt:folder') {
+		node.recurse("nt:folder") {
 			names.add(it.name)
 		}
 

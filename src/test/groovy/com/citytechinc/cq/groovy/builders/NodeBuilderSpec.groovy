@@ -1,106 +1,90 @@
 package com.citytechinc.cq.groovy.builders
 
-import com.citytechinc.cq.groovy.metaclass.GroovyMetaClassRegistry
-import com.citytechinc.cq.testing.AbstractRepositorySpec
+import com.citytechinc.cq.groovy.AbstractGroovyToolsSpec
 
-import spock.lang.Shared
+class NodeBuilderSpec extends AbstractGroovyToolsSpec {
 
-class NodeBuilderSpec extends AbstractRepositorySpec {
-
-	@Shared nodeBuilder
-
-	def setupSpec() {
-		GroovyMetaClassRegistry.registerMetaClasses()
-
-		nodeBuilder = new NodeBuilder(session)
-	}
-
-	def cleanup() {
-		session.rootNode.nodes.findAll { !SYSTEM_NODE_NAMES.contains(it.name) }*.remove()
-		session.save()
-	}
-
-    def 'build node'() {
+    def "build node"() {
         setup:
         nodeBuilder.foo()
 
         expect:
-        session.nodeExists('/foo')
-        session.getNode('/foo').primaryNodeType.name == 'nt:unstructured'
+        session.nodeExists("/foo")
+        session.getNode("/foo").primaryNodeType.name == "nt:unstructured"
     }
 
-    def 'build node with type'() {
+    def "build node with type"() {
         setup:
-        nodeBuilder.foo('sling:Folder')
+        nodeBuilder.foo("sling:Folder")
 
         expect:
-        session.nodeExists('/foo')
-        session.getNode('/foo').primaryNodeType.name == 'sling:Folder'
+        session.nodeExists("/foo")
+        session.getNode("/foo").primaryNodeType.name == "sling:Folder"
     }
 
-    def 'build node with properties'() {
+    def "build node with properties"() {
         setup:
-        def properties = ['jcr:title': 'Foo', 'sling:resourceType': 'foo/bar']
+        def properties = ["jcr:title": "Foo", "sling:resourceType": "foo/bar"]
 
         nodeBuilder.foo(properties)
 
         expect:
-        nodeHasExpectedProperties('/foo', properties)
+        nodeHasExpectedProperties("/foo", properties)
     }
 
-	def 'build node with non-string properties'() {
+	def "build node with non-string properties"() {
 		setup:
-		def properties = ['date': Calendar.instance, 'number': 1L, 'array': ['one', 'two', 'three'].toArray(new String[0])]
+		def properties = ["date": Calendar.instance, "number": 1L, "array": ["one", "two", "three"].toArray(new String[0])]
 
 		nodeBuilder.foo(properties)
 
 		expect:
-		nodeHasExpectedProperties('/foo', properties)
+		nodeHasExpectedProperties("/foo", properties)
 	}
 
-    def 'build node with type and properties'() {
+    def "build node with type and properties"() {
         setup:
-        def properties = ['jcr:title': 'Foo']
+        def properties = ["jcr:title": "Foo"]
 
-        nodeBuilder.foo('sling:Folder', properties)
+        nodeBuilder.foo("sling:Folder", properties)
 
         expect:
-		nodeHasExpectedTypeAndProperties('/foo', 'sling:Folder', properties)
+		nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", properties)
     }
 
-    def 'build node hierarchy'() {
+    def "build node hierarchy"() {
         setup:
         nodeBuilder.foo {
             bar()
         }
 
         expect:
-        session.nodeExists('/foo/bar')
+        session.nodeExists("/foo/bar")
     }
 
-    def 'build node hierarchy with type'() {
+    def "build node hierarchy with type"() {
         setup:
-        nodeBuilder.foo('sling:Folder') {
-            bar('sling:Folder')
+        nodeBuilder.foo("sling:Folder") {
+            bar("sling:Folder")
         }
 
         expect:
-		nodeHasExpectedTypeAndProperties('/foo', 'sling:Folder', [:])
-		nodeHasExpectedTypeAndProperties('/foo/bar', 'sling:Folder', [:])
+		nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", [:])
+		nodeHasExpectedTypeAndProperties("/foo/bar", "sling:Folder", [:])
     }
 
-    def 'build node hierarchy with type and properties'() {
+    def "build node hierarchy with type and properties"() {
         setup:
-        def fooProperties = ['jcr:title': 'Foo']
-        def barProperties = ['jcr:title': 'Bar']
+        def fooProperties = ["jcr:title": "Foo"]
+        def barProperties = ["jcr:title": "Bar"]
 
-        nodeBuilder.foo('sling:Folder', fooProperties) {
-            bar('sling:Folder', barProperties)
+        nodeBuilder.foo("sling:Folder", fooProperties) {
+            bar("sling:Folder", barProperties)
         }
 
         expect:
-        nodeHasExpectedTypeAndProperties('/foo', 'sling:Folder', fooProperties)
-        nodeHasExpectedTypeAndProperties('/foo/bar', 'sling:Folder', barProperties)
+        nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", fooProperties)
+        nodeHasExpectedTypeAndProperties("/foo/bar", "sling:Folder", barProperties)
     }
 
 	void nodeHasExpectedTypeAndProperties(path, type, properties) {

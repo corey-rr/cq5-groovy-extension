@@ -6,7 +6,7 @@ import com.citytechinc.cq.groovy.metaclass.GroovyMetaClassRegistry
 import com.citytechinc.cq.testing.AbstractRepositorySpec
 import spock.lang.Shared
 
-abstract class AbstractGroovySpec extends AbstractRepositorySpec {
+abstract class AbstractGroovyToolsSpec extends AbstractRepositorySpec {
 
 	@Shared nodeBuilder
 
