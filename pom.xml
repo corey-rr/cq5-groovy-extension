@@ -10,10 +10,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cq5-groovy-tools</artifactId>
+    <artifactId>cq5-groovy-extension</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>CITYTECH, Inc. CQ5 Groovy Tools</name>
+    <name>CITYTECH, Inc. CQ5 Groovy Extension</name>
     <description>Bundle containing Groovy metaclasses and builders for CQ5.</description>
 
     <organization>
@@ -21,10 +21,18 @@
         <url>http://www.citytechinc.com</url>
     </organization>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <scm>
-        <connection>scm:git:git@github.com:Citytechinc/cq5-library.git</connection>
-        <url>https://github.com/Citytechinc/cq5-library</url>
-        <developerConnection>scm:git:git@github.com:Citytechinc/cq5-library.git</developerConnection>
+        <connection>scm:git:git@github.com:Citytechinc/cq5-groovy-extension.git</connection>
+        <url>https://github.com/Citytechinc/cq5-groovy-extension</url>
+        <developerConnection>scm:git:git@github.com:Citytechinc/cq5-groovy-extension.git</developerConnection>
     </scm>
 
     <repositories>
