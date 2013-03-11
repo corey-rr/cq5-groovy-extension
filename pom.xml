@@ -14,6 +14,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>CITYTECH, Inc. CQ5 Groovy Tools</name>
+    <description>Bundle containing Groovy metaclasses and builders for CQ5.</description>
+
+    <organization>
+        <name>CITYTECH, Inc.</name>
+        <url>http://www.citytechinc.com</url>
+    </organization>
+
+    <scm>
+        <connection>scm:git:git@github.com:Citytechinc/cq5-library.git</connection>
+        <url>https://github.com/Citytechinc/cq5-library</url>
+        <developerConnection>scm:git:git@github.com:Citytechinc/cq5-library.git</developerConnection>
+    </scm>
 
     <repositories>
         <repository>
@@ -22,11 +34,23 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>citytech-public-releases</id>
+            <url>http://nexus.citytech.ctmsp.com/content/repositories/public-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>citytech-public-snapshots</id>
+            <url>http://nexus.citytech.ctmsp.com/content/repositories/public-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.0</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -160,6 +184,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
