@@ -1,95 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <groupId>com.citytechinc.cq</groupId>
         <artifactId>parent</artifactId>
-        <version>5.6.0-SNAPSHOT</version>
+        <version>5.6.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cq5-groovy-tools</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <artifactId>cq5-groovy-extension</artifactId>
+    <version>0.1.0</version>
     <packaging>bundle</packaging>
-    <name>CITYTECH, Inc. CQ5 Groovy Tools</name>
+    <name>CITYTECH, Inc. CQ5 Groovy Extension</name>
+    <description>Bundle containing Groovy metaclasses, builders, and services for CQ5.</description>
+
+    <organization>
+        <name>CITYTECH, Inc.</name>
+        <url>http://www.citytechinc.com</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:Citytechinc/cq5-groovy-extension.git</connection>
+        <url>https://github.com/Citytechinc/cq5-groovy-extension</url>
+        <developerConnection>scm:git:git@github.com:Citytechinc/cq5-groovy-extension.git</developerConnection>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>citytech-public</id>
+            <url>http://nexus.citytech.ctmsp.com/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>citytech-public-releases</id>
+            <url>http://nexus.citytech.ctmsp.com/content/repositories/public-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>citytech-public-snapshots</id>
+            <url>http://nexus.citytech.ctmsp.com/content/repositories/public-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <plugins>
-	        <plugin>
-		        <artifactId>maven-compiler-plugin</artifactId>
-		        <version>2.5.1</version>
-		        <configuration>
-			        <source>1.6</source>
-			        <target>1.6</target>
-			        <encoding>utf-8</encoding>
-		        </configuration>
-	        </plugin>
-	        <plugin>
-		        <groupId>org.codehaus.gmaven</groupId>
-		        <artifactId>gmaven-plugin</artifactId>
-		        <version>1.5</version>
-		        <executions>
-			        <execution>
-				        <configuration>
-					        <providerSelection>2.0</providerSelection>
-				        </configuration>
-				        <goals>
-					        <goal>generateStubs</goal>
-					        <goal>compile</goal>
-					        <goal>generateTestStubs</goal>
-					        <goal>testCompile</goal>
-				        </goals>
-			        </execution>
-		        </executions>
-		        <dependencies>
-			        <dependency>
-				        <groupId>org.codehaus.groovy</groupId>
-				        <artifactId>groovy-all</artifactId>
-				        <version>2.1.1</version>
-			        </dependency>
-		        </dependencies>
-	        </plugin>
-	        <plugin>
-		        <artifactId>maven-surefire-plugin</artifactId>
-		        <version>2.13</version>
-		        <configuration>
-			        <includes>
-				        <include>**/*Spec*</include>
-			        </includes>
-		        </configuration>
-	        </plugin>
-	        <plugin>
-		        <groupId>org.apache.felix</groupId>
-		        <artifactId>maven-scr-plugin</artifactId>
-		        <version>1.9.0</version>
-		        <extensions>true</extensions>
-		        <executions>
-			        <execution>
-				        <id>generate-scr-scrdescriptor</id>
-				        <goals>
-					        <goal>scr</goal>
-				        </goals>
-			        </execution>
-		        </executions>
-	        </plugin>
-	        <plugin>
-		        <groupId>org.apache.felix</groupId>
-		        <artifactId>maven-bundle-plugin</artifactId>
-		        <version>2.3.7</version>
-		        <extensions>true</extensions>
-		        <configuration>
-			        <instructions>
-				        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-				        <Export-Package>com.citytechinc.cq.groovy.*</Export-Package>
-				        <DynamicImport-Package>*</DynamicImport-Package>
-			        </instructions>
-		        </configuration>
-	        </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <providerSelection>2.0</providerSelection>
+                        </configuration>
+                        <goals>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>2.1.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.13</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Spec*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <version>1.9.0</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>generate-scr-scrdescriptor</id>
+                        <goals>
+                            <goal>scr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Export-Package>!com.citytechinc.cq.groovy.*.impl.*,com.citytechinc.cq.groovy.*</Export-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-	            <version>2.9</version>
+                <version>2.9</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>
@@ -102,7 +146,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-	            <version>2.2.1</version>
+                <version>2.2.1</version>
                 <executions>
                     <execution>
                         <phase>deploy</phase>
@@ -116,27 +160,27 @@
     </build>
 
     <dependencies>
-	    <!-- compile -->
-	    <dependency>
-		    <groupId>org.apache.felix</groupId>
-		    <artifactId>org.apache.felix.scr.annotations</artifactId>
-		    <version>1.7.0</version>
-	    </dependency>
-	    <dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-nop</artifactId>
-		    <version>1.6.4</version>
-	    </dependency>
+        <!-- compile -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 
-	    <!-- provided -->
+        <!-- provided -->
         <dependency>
             <groupId>javax.jcr</groupId>
             <artifactId>jcr</artifactId>
         </dependency>
-	    <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>servlet-api</artifactId>
-	    </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.day.cq.wcm</groupId>
             <artifactId>cq-wcm-api</artifactId>
@@ -145,49 +189,57 @@
             <groupId>com.day.cq</groupId>
             <artifactId>cq-commons</artifactId>
         </dependency>
-	    <dependency>
-		    <groupId>com.day.cq</groupId>
-		    <artifactId>cq-tagging</artifactId>
-	    </dependency>
+        <dependency>
+            <groupId>com.day.cq</groupId>
+            <artifactId>cq-tagging</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-	        <version>2.1.1</version>
-	        <scope>provided</scope>
+            <version>2.1.1</version>
+            <scope>provided</scope>
         </dependency>
 
-		<!-- test -->
+        <!-- test -->
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-	        <version>0.7-groovy-2.0</version>
-	        <scope>test</scope>
+            <version>0.7-groovy-2.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.commons.testing</artifactId>
-	        <version>2.0.10</version>
-	        <scope>test</scope>
+            <version>2.0.10</version>
+            <scope>test</scope>
             <exclusions>
-	            <exclusion>
-		            <groupId>org.slf4j</groupId>
-		            <artifactId>slf4j-api</artifactId>
-	            </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-simple</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
-	    <dependency>
-		    <groupId>com.citytechinc.cq</groupId>
-		    <artifactId>cq5-testing</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
-		    <scope>test</scope>
-	    </dependency>
+        <dependency>
+            <groupId>com.citytechinc.cq</groupId>
+            <artifactId>cq5-testing</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
