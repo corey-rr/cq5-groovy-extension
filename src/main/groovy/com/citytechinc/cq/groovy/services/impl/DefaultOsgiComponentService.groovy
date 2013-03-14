@@ -2,9 +2,13 @@ package com.citytechinc.cq.groovy.services.impl
 
 import com.citytechinc.cq.groovy.services.OsgiComponentService
 import org.apache.felix.scr.ScrService
+import org.apache.felix.scr.annotations.Component
 import org.apache.felix.scr.annotations.Reference
+import org.apache.felix.scr.annotations.Service
 import org.slf4j.LoggerFactory
 
+@Service
+@Component(label = "Groovy Extension OSGi Component Service")
 class DefaultOsgiComponentService implements OsgiComponentService {
 
     static final def LOG = LoggerFactory.getLogger(DefaultOsgiComponentService)
