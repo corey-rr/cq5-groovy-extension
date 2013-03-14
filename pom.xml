@@ -14,7 +14,7 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>CITYTECH, Inc. CQ5 Groovy Extension</name>
-    <description>Bundle containing Groovy metaclasses and builders for CQ5.</description>
+    <description>Bundle containing Groovy metaclasses, builders, and services for CQ5.</description>
 
     <organization>
         <name>CITYTECH, Inc.</name>
@@ -125,7 +125,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Export-Package>com.citytechinc.cq.groovy.*</Export-Package>
+                        <Export-Package>!com.citytechinc.cq.groovy.*.impl.*,com.citytechinc.cq.groovy.*</Export-Package>
                         <DynamicImport-Package>*</DynamicImport-Package>
                     </instructions>
                 </configuration>
