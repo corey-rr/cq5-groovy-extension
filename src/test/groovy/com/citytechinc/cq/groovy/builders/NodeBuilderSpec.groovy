@@ -1,8 +1,23 @@
 package com.citytechinc.cq.groovy.builders
 
-import com.citytechinc.cq.groovy.AbstractGroovyToolsSpec
+import com.citytechinc.cq.groovy.metaclass.GroovyMetaClassRegistry
+import com.citytechinc.cq.testing.AbstractRepositorySpec
+import spock.lang.Shared
 
-class NodeBuilderSpec extends AbstractGroovyToolsSpec {
+class NodeBuilderSpec extends AbstractRepositorySpec {
+
+    @Shared nodeBuilder
+
+    def setupSpec() {
+        GroovyMetaClassRegistry.registerMetaClasses()
+
+        nodeBuilder = new NodeBuilder(session)
+    }
+
+    def cleanup() {
+        session.rootNode.nodes.findAll { !SYSTEM_NODE_NAMES.contains(it.name) }*.remove()
+        session.save()
+    }
 
     def "build node"() {
         setup:
@@ -32,15 +47,15 @@ class NodeBuilderSpec extends AbstractGroovyToolsSpec {
         nodeHasExpectedProperties("/foo", properties)
     }
 
-	def "build node with non-string properties"() {
-		setup:
-		def properties = ["date": Calendar.instance, "number": 1L, "array": ["one", "two", "three"].toArray(new String[0])]
+    def "build node with non-string properties"() {
+        setup:
+        def properties = ["date": Calendar.instance, "number": 1L, "array": ["one", "two", "three"].toArray(new String[0])]
 
-		nodeBuilder.foo(properties)
+        nodeBuilder.foo(properties)
 
-		expect:
-		nodeHasExpectedProperties("/foo", properties)
-	}
+        expect:
+        nodeHasExpectedProperties("/foo", properties)
+    }
 
     def "build node with type and properties"() {
         setup:
@@ -49,7 +64,7 @@ class NodeBuilderSpec extends AbstractGroovyToolsSpec {
         nodeBuilder.foo("sling:Folder", properties)
 
         expect:
-		nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", properties)
+        nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", properties)
     }
 
     def "build node hierarchy"() {
@@ -69,8 +84,8 @@ class NodeBuilderSpec extends AbstractGroovyToolsSpec {
         }
 
         expect:
-		nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", [:])
-		nodeHasExpectedTypeAndProperties("/foo/bar", "sling:Folder", [:])
+        nodeHasExpectedTypeAndProperties("/foo", "sling:Folder", [:])
+        nodeHasExpectedTypeAndProperties("/foo/bar", "sling:Folder", [:])
     }
 
     def "build node hierarchy with type and properties"() {
@@ -87,18 +102,18 @@ class NodeBuilderSpec extends AbstractGroovyToolsSpec {
         nodeHasExpectedTypeAndProperties("/foo/bar", "sling:Folder", barProperties)
     }
 
-	void nodeHasExpectedTypeAndProperties(path, type, properties) {
-		def node = session.getNode(path)
+    void nodeHasExpectedTypeAndProperties(path, type, properties) {
+        def node = session.getNode(path)
 
-		assert node.primaryNodeType.name == type
+        assert node.primaryNodeType.name == type
 
-		properties.each { k, v ->
-			assert node.get(k) == v
-		}
-	}
+        properties.each { k, v ->
+            assert node.get(k) == v
+        }
+    }
 
     void nodeHasExpectedProperties(path, properties) {
-		def node = session.getNode(path)
+        def node = session.getNode(path)
 
         properties.each { k, v ->
             assert node.get(k) == v

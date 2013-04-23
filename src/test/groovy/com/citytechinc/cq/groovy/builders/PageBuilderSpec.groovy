@@ -1,8 +1,23 @@
 package com.citytechinc.cq.groovy.builders
 
-import com.citytechinc.cq.groovy.AbstractGroovyToolsSpec
+import com.citytechinc.cq.groovy.metaclass.GroovyMetaClassRegistry
+import com.citytechinc.cq.testing.AbstractRepositorySpec
+import spock.lang.Shared
 
-class PageBuilderSpec extends AbstractGroovyToolsSpec {
+class PageBuilderSpec extends AbstractRepositorySpec {
+
+    @Shared pageBuilder
+
+    def setupSpec() {
+        GroovyMetaClassRegistry.registerMetaClasses()
+
+        pageBuilder = new PageBuilder(session)
+    }
+
+    def cleanup() {
+        session.rootNode.nodes.findAll { !SYSTEM_NODE_NAMES.contains(it.name) }*.remove()
+        session.save()
+    }
 
     def "build page"() {
         setup:
@@ -14,19 +29,19 @@ class PageBuilderSpec extends AbstractGroovyToolsSpec {
         session.getNode("/foo").primaryNodeType.name == "cq:Page"
     }
 
-	def "build page with properties"() {
-		setup:
-		def pageProperties = ["sling:resourceType": "foundation/components/page"]
+    def "build page with properties"() {
+        setup:
+        def pageProperties = ["sling:resourceType": "foundation/components/page"]
 
-		pageBuilder.content {
-			citytechinc("CITYTECH, Inc.", pageProperties)
-		}
+        pageBuilder.content {
+            citytechinc("CITYTECH, Inc.", pageProperties)
+        }
 
-		expect:
-		def pageNode = session.getNode("/content/citytechinc")
+        expect:
+        def pageNode = session.getNode("/content/citytechinc")
 
-		pageHasExpectedProperties(pageNode, "CITYTECH, Inc.", pageProperties)
-	}
+        pageHasExpectedProperties(pageNode, "CITYTECH, Inc.", pageProperties)
+    }
 
     def "build page with content"() {
         setup:
@@ -49,19 +64,19 @@ class PageBuilderSpec extends AbstractGroovyToolsSpec {
         nodeHasExpectedProperties(parNode, parProperties)
     }
 
-	def "build page with descendant node of given type"() {
-		setup:
-		pageBuilder.content {
-			citytechinc("CITYTECH, Inc.") {
-				"jcr:content" {
-					derp("sling:Folder")
-				}
-			}
-		}
+    def "build page with descendant node of given type"() {
+        setup:
+        pageBuilder.content {
+            citytechinc("CITYTECH, Inc.") {
+                "jcr:content" {
+                    derp("sling:Folder")
+                }
+            }
+        }
 
-		expect:
-		session.getNode("/content/citytechinc/jcr:content/derp").primaryNodeType.name == "sling:Folder"
-	}
+        expect:
+        session.getNode("/content/citytechinc/jcr:content/derp").primaryNodeType.name == "sling:Folder"
+    }
 
     def "build pages with content"() {
         setup:

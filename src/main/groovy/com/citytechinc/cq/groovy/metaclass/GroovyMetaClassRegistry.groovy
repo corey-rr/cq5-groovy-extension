@@ -84,17 +84,7 @@ class GroovyMetaClassRegistry {
             }
 
             getOrAddNode { String name ->
-                def node = delegate
-
-                name.split("/").each { path ->
-                    if (node.hasNode(path)) {
-                        node = node.getNode(path)
-                    } else {
-                        node = node.addNode(path)
-                    }
-                }
-
-                node
+                delegate.hasNode(name) ? delegate.getNode(name) : delegate.addNode(name)
             }
 
             getOrAddNode { String name, String primaryNodeTypeName ->
@@ -106,7 +96,7 @@ class GroovyMetaClassRegistry {
 
                 if (delegate.hasNode(name)) {
                     delegate.getNode(name).remove()
-                    remove = true
+                    removed = true
                 }
 
                 removed
